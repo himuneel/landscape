@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final appTitle = 'News Feed';
+    return MaterialApp(
+      title: appTitle,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: CustomSizeGrid(
+        title: appTitle,
+      ),
+    );
+  }
+}
+
+class CustomSizeGrid extends StatelessWidget {
+  final String title;
+  CustomSizeGrid({Key? key, required this.title}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          int crossAxisCount = orientation == Orientation.portrait ? 1 : 2;
+          return GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              childAspectRatio: 1.0,
+              mainAxisSpacing: 0.1,
+              crossAxisSpacing: 1.0,
+            ),
+            itemCount: 20,
+            itemBuilder: (context, index) {
+              return Center(
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  color: Colors.blue,
+                  child: Center(
+                    child: Text(
+                      '150*150',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
